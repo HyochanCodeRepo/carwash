@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+
+
+
+<div class="container">
+    <div class="row justify-content-right ">
+        <div class="col-8 offset-2">
+            <h1>리스트페이지</h1>
+            <a href="/board/register">등록화면 이동</a>
+        <table class="table">
+            <thead>
+            <th scope="col">글번호</th>
+            <th scope="col">제목</th>
+            <th scope="col">내용</th>
+            <th scope="col">작성자</th>
+            </thead>
+
+            <tbody>
+            <th:block  th:each="boardList:${boardList}">
+                <tr>
+                    <th scope="row offset-4" th:text="${boardList.num}"></th>
+                    <td th:text="${boardList.title}"></td>
+                    <td th:text="${boardList.content}"></td>
+                    <td th:text="${boardList.writer}"></td>
+                </tr>
+
+            </th:block>
+
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+</body>
+</html>
