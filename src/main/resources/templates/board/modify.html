@@ -12,14 +12,22 @@
     <div class="row justify-content-right ">
         <div class="col-8 offset-2">
             <h1>[[${boardDTO.num}]] 번 글 수정 페이지</h1>
+
             <a th:href="${'/board/listA?' +requestPageDTO.link}">글 목록 이동</a>
 
-            글번호 : <span th:text="${boardDTO.num}"></span><br>
-            글제목 : <span th:text="${boardDTO.title}"></span><br>
-            글내용 : <span th:text="${boardDTO.content}"></span><br>
-            글작성자 : <span th:text="${boardDTO.writer}"></span><br>
+            <form action="/board/modify" method="post">
 
-            <a th:href="${'/board/modify?num=' + boardDTO.num + '&'+ requestPageDTO.link}">수정하기</a>
+                글번호 : <span th:text="${boardDTO.num}"></span><br>
+                글제목 : <input name="title" th:value="${boardDTO.title}"><br>
+                글내용 : <input name="content" th:value="${boardDTO.content}"><br>
+                글작성자 : <span th:text="${boardDTO.writer}"></span><br>
+
+                <button class="btn btn-primary">수정 저장!</button>
+
+
+
+            </form>
+
 
 
 
