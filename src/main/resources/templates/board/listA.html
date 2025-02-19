@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1>게시판 목록</h1>
+
+<div class="container">
+    <div class="row justify-content-right ">
+        <div class="col-8 offset-2">
+            <h1>리스트페이지</h1>
+            <a href="/board/register">등록화면 이동</a>
+            <table class="table">
+                <thead>
+                <th scope="col">글번호</th>
+                <th scope="col">제목</th>
+                <th scope="col">내용</th>
+                <th scope="col">작성자</th>
+                </thead>
+
+                <tbody>
+                <th:block  th:each="boardDTO:${responsePageDTO.dtoList}">
+                    <tr>
+                        <th scope="row offset-4" th:text="${boardDTO.num}"></th>
+                        <td><a class="readbtn" th:data-num="${boardDTO.num}" th:href="@{/board/read(num=${boardDTO.num})}">
+                                [[${boardDTO.title}]]
+                            </a>
+                        </td>
+                        <td th:text="${boardDTO.content}"></td>
+                        <td th:text="${boardDTO.writer}"></td>
+                    </tr>
+
+                </th:block>
+
+
+
+                </tbody>
+
+            </table>
+
+            <th:block th:if="${responsePageDTO.prev}">
+                <a th:href="@{/board/listA(page=${responsePageDTO.start -1},type=${requestPageDTO.type}, keyword=${requestPageDTO.keyword} ) }">이전</a>
+            </th:block>
+
+
+            <th:block th:each="page : ${#numbers.sequence(responsePageDTO.start, responsePageDTO.end)}">
+                <th:block th:if="${requestPageDTO.page == page}">
+                    <a style="color: pink; font-size: 2em" th:href="@{/board/listA(page=${page} ) }"   >[[${page}]]</a>
+                </th:block>
+                <th:block th:if="${requestPageDTO.page != page}">
+                    <a th:href="@{/board/listA(page=${page}, type=${requestPageDTO.type}, keyword=${requestPageDTO.keyword} ) }"   >[[${page}]]</a>
+                </th:block>
+            </th:block>
+
+            <th:block th:if="${responsePageDTO.next}">
+                <a th:href="@{/board/listA(page=${responsePageDTO.end + 1},type=${requestPageDTO.type}, keyword=${requestPageDTO.keyword} ) }"> 다음</a>
+            </th:block>
+
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+</body>
+</html>

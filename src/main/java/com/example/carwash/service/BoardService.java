@@ -1,9 +1,21 @@
 package com.example.carwash.service;
 
 import com.example.carwash.dto.BoardDTO;
+import com.example.carwash.dto.RequestPageDTO;
+import com.example.carwash.dto.ResponsePageDTO;
+import org.springframework.data.domain.Pageable;
 
 public interface BoardService {
 
     public BoardDTO register(BoardDTO boardDTO);
+
+
+    public int boardCount(Pageable pageable);
+
+    public ResponsePageDTO<BoardDTO> listPage(RequestPageDTO requestPageDTO);
+
+    public BoardDTO read(Long num);
+
+    public BoardDTO update(BoardDTO boardDTO);
 
 }
