@@ -25,7 +25,7 @@ public class RequestPageDTO {
     private String keyword;
     private String link;
 
-    public String[] getType(){
+    public String[] getTypes(){
         //검색을 위한 컬럼을 찾기위해서 사용
 
         if (type == null || type.isEmpty()) {
@@ -42,7 +42,7 @@ public class RequestPageDTO {
         if (link == null) {
             StringBuilder builder = new StringBuilder();
             builder.append("page=" + this.page);
-            builder.append("%size=" + this.size);
+            builder.append("&size=" + this.size);
 
             if (type != null && type.length() > 0) {
                 builder.append("&type=" + type);

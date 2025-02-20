@@ -1,5 +1,7 @@
 package com.example.carwash.repository;
 
+import com.example.carwash.dto.RequestPageDTO;
+import com.example.carwash.dto.ResponsePageDTO;
 import com.example.carwash.entity.Board;
 import com.example.carwash.entity.QBoard;
 import com.querydsl.core.BooleanBuilder;
@@ -13,17 +15,13 @@ import java.util.List;
 
 public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardSearch {
 
-    /**
-     * Creates a new {@link QuerydslRepositorySupport} instance for the given domain type.
-     *
-     * @param domainClass must not be {@literal null}.
-     */
+
     public BoardSearchImpl() {
         super(Board.class);
     }
 
     @Override
-    public Page<Board> search(String[] types, String keyword, Pageable pageable) {
+    public Page<Board> search(String[] types, String keyword,  Pageable pageable) {
 
         QBoard board = QBoard.board;
         JPQLQuery<Board> query = from(board);
@@ -52,6 +50,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         query.where(board.num.gt(0L));
         System.out.println("쿼리문 where 추가 : " + query);
 
+        //페이징
         this.getQuerydsl().applyPagination(pageable, query);
 
         //리스트
@@ -61,8 +60,6 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         //총게시물
         long count =
                 query.fetchCount();
-
-
 
 
         return new PageImpl<>(boardList, pageable, count);

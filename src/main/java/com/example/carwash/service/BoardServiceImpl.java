@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class BoardServiceImpl implements BoardService{
 
         //검색처리
         Page<Board> boardPage =
-                boardRepository.search(requestPageDTO.getType(), requestPageDTO.getKeyword(), pageable);
+                boardRepository.search(requestPageDTO.getTypes(), requestPageDTO.getKeyword(), pageable);
 
         int total = (int) boardPage.getTotalElements();//총게시물 수
 
@@ -104,5 +105,15 @@ public class BoardServiceImpl implements BoardService{
 
 
         return boardDTO;
+    }
+
+    @Override
+    public Long del(Long num) {
+
+        boardRepository.deleteById(num);
+
+
+
+        return num;
     }
 }

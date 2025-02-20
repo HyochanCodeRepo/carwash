@@ -22,9 +22,17 @@
                 글내용 : <input name="content" th:value="${boardDTO.content}"><br>
                 글작성자 : <span th:text="${boardDTO.writer}"></span><br>
 
-                <button class="btn btn-primary">수정 저장!</button>
+                <input name="num" type="hidden" th:value="${boardDTO.num}">
+                <input name="page" type="hidden" th:value="${requestPageDTO.page}">
+                <input name="keyword" type="hidden" th:value="${requestPageDTO.keyword}">
+                <input name="type" type="hidden" th:value="${requestPageDTO.type}">
 
 
+                <button class="btn btn-primary">저장!</button>
+            </form>
+            <form action="/board/del" method="post" >
+                <input name="num" type="hidden" th:value="${boardDTO.num}">
+                <button class="btn btn-primary mt-2">삭제!</button>
 
             </form>
 

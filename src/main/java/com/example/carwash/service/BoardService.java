@@ -18,4 +18,6 @@ public interface BoardService {
 
     public BoardDTO update(BoardDTO boardDTO);
 
+    public Long del(Long num);
+
 }

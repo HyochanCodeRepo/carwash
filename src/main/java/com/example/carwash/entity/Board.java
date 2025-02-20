@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Board {
+public class Board extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +29,6 @@ public class Board {
     @Column(length = 50, nullable = false)
     private String writer;
 
-    private LocalDateTime regTime;
-    private LocalDateTime modTime;
 
 }
 

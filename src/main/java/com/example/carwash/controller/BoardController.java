@@ -6,6 +6,7 @@ import com.example.carwash.dto.ResponsePageDTO;
 import com.example.carwash.entity.Board;
 import com.example.carwash.repository.BoardRepository;
 import com.example.carwash.service.BoardService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @Log4j2
@@ -125,12 +127,38 @@ public class BoardController {
             return "redirect:/board/listA";
         }
         BoardDTO boardDTO =
-            boardService.read(num);
+                boardService.read(num);
 
         model.addAttribute("boardDTO", boardDTO);
 
-
-
         return "board/modify";
     }
+
+    @PostMapping("/modify")
+    public String modifyPost(BoardDTO boardDTO, Model model, RequestPageDTO requestPageDTO) {
+        log.info("modify Post 진입" + boardDTO);
+        log.info("modify Post 진입" + requestPageDTO);
+
+        boardDTO =
+                boardService.update(boardDTO);
+
+        log.info("수정된 데이터 출력 " + boardDTO);
+
+        return "redirect:/board/read?num=" + boardDTO.getNum() + '&' + requestPageDTO.getLink();
+    }
+
+    @PostMapping("/del")
+    public String del(BoardDTO boardDTO) {
+        log.info("삭제 post 진입!" + boardDTO);
+        log.info("삭제 post 진입!" + boardDTO.getNum());
+
+        boardService.del(boardDTO.getNum());
+
+
+        return "redirect:/board/listA";
+
+    }
+
+
+
 }
