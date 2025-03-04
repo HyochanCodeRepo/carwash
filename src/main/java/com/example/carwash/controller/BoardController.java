@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,13 +40,19 @@ public class BoardController {
     }
 
     @PostMapping("/register")
-    public String registerPost(BoardDTO boardDTO) {
+    public String registerPost(BoardDTO boardDTO, Principal principal) {
         log.info("등록 포스트 진입 : " + boardDTO);
         log.info("등록 포스트 진입 : " + boardDTO);
         log.info("등록 포스트 진입 : " + boardDTO);
         log.info("등록 포스트 진입 : " + boardDTO);
         log.info("등록 포스트 진입 : " + boardDTO);
 
+        log.info(principal.getName());
+        log.info(principal.getName());
+        log.info(principal.getName());
+        log.info(principal.getName());
+        log.info(principal.getName());
+        boardDTO.setWriter(principal.getName());
 
         boardDTO =
                 boardService.register(boardDTO);
@@ -80,6 +87,8 @@ public class BoardController {
 
 
     }
+
+
 
     @GetMapping("/read")
     public String read(Long num, Model model, RequestPageDTO requestPageDTO) {

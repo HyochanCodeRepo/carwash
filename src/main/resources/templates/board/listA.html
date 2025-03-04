@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}"
+>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,7 +15,7 @@
 
 
 
-
+<th:block layout:fragment="content">
 <div class="container mt-5">
     <div class="row justify-content-right ">
         <div class="col-8 offset-2">
@@ -89,7 +93,7 @@
 </div>
 
 
-
+</th:block>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </body>

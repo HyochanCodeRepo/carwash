@@ -1,7 +1,9 @@
 package com.example.carwash.repository;
 
 import com.example.carwash.entity.Board;
+import com.example.carwash.entity.Member;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,14 @@ class BoardRepositoryTest {
     @Autowired
     BoardRepository boardRepository;
 
+    @Autowired
+    MemberRepository memberRepository;
+
 
     @Test
     public void registerTest(){
 
+        Member member = memberRepository.findById(5L).get();
 
         for (int i = 0; i < 50; i++) {
 
@@ -32,26 +38,29 @@ class BoardRepositoryTest {
             board.setTitle(i+"번째 제목");
             board.setContent(i+"번째 내용");
             board.setWriter("이효찬"+i);
-            board.setRegTime(LocalDateTime.now());
-            board.setModTime(LocalDateTime.now());
+            board.setMember(member);
 
             boardRepository.save(board);
         }
 
     }
     @Test
+    @Transactional
     public void readTest(){
 
         Optional<Board> optionalBoard =
-            boardRepository.findById(1L);
+            boardRepository.findById(49L);
 
         try {
             Board board =
                     optionalBoard.orElseThrow(EntityNotFoundException::new);
-                log.info(board);
-                log.info(board);
-                log.info(board);
-                log.info(board);
+
+                log.info(board.getMember().getName());
+                log.info(board.getMember().getName());
+                log.info(board.getMember().getName());
+                log.info(board.getMember().getName());
+
+
         }catch(EntityNotFoundException e) {
             log.info("글 번호가 존재하지않습니다.");
             e.printStackTrace();
