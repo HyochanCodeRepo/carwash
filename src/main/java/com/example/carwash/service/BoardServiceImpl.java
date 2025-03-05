@@ -4,7 +4,11 @@ import com.example.carwash.dto.BoardDTO;
 import com.example.carwash.dto.RequestPageDTO;
 import com.example.carwash.dto.ResponsePageDTO;
 import com.example.carwash.entity.Board;
+import com.example.carwash.entity.Categ;
+import com.example.carwash.entity.Member;
 import com.example.carwash.repository.BoardRepository;
+import com.example.carwash.repository.CategRepository;
+import com.example.carwash.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -26,10 +30,17 @@ public class BoardServiceImpl implements BoardService{
 
     private ModelMapper modelMapper = new ModelMapper();
     private final BoardRepository boardRepository;
+    private final CategRepository categRepository;
+    private final MemberRepository memberRepository;
 
 
     @Override
-    public BoardDTO register(BoardDTO boardDTO) {
+    public BoardDTO register(BoardDTO boardDTO, String email) {
+        Categ categ =
+        categRepository.findById(boardDTO.getCateg_num()).get();
+
+        Member member =
+        memberRepository.findByEmail(email);
 
         Board board = modelMapper.map(boardDTO, Board.class);
 
@@ -37,6 +48,9 @@ public class BoardServiceImpl implements BoardService{
             boardRepository.save(board);
         boardDTO = modelMapper.map(board, BoardDTO.class);
 
+        board.setCateg(categ);
+
+        board.setMember(member);
 
         return boardDTO;
     }

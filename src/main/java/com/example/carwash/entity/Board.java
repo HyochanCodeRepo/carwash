@@ -33,6 +33,8 @@ public class Board extends BaseEntity {
     @JoinColumn(name = "member_num")
     private Member member;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categ_num")
+    private Categ categ;
 }
 

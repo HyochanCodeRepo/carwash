@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface BoardService {
 
-    public BoardDTO register(BoardDTO boardDTO);
+    public BoardDTO register(BoardDTO boardDTO, String email);
 
 
     public int boardCount(Pageable pageable);

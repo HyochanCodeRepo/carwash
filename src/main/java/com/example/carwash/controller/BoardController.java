@@ -55,7 +55,7 @@ public class BoardController {
         boardDTO.setWriter(principal.getName());
 
         boardDTO =
-                boardService.register(boardDTO);
+                boardService.register(boardDTO, principal.getName());
         log.info("저장된 데이터 :" + boardDTO);
         return "redirect:/board/listA";
 
@@ -88,6 +88,32 @@ public class BoardController {
 
     }
 
+    @GetMapping("/listB")
+    public String listB(Model model, RequestPageDTO requestPageDTO) {
+        log.info(requestPageDTO);
+        log.info(requestPageDTO.getLink());
+        log.info(requestPageDTO.getPageable());
+
+        ResponsePageDTO responsePageDTO =
+                boardService.listPage(requestPageDTO);
+        model.addAttribute("responsePageDTO", responsePageDTO);
+
+        return "board/listB";
+
+    }
+    @GetMapping("/listC")
+    public String listC(Model model, RequestPageDTO requestPageDTO) {
+        log.info(requestPageDTO);
+        log.info(requestPageDTO.getLink());
+        log.info(requestPageDTO.getPageable());
+
+        ResponsePageDTO responsePageDTO =
+                boardService.listPage(requestPageDTO);
+        model.addAttribute("responsePageDTO", responsePageDTO);
+
+        return "board/listC";
+
+    }
 
 
     @GetMapping("/read")

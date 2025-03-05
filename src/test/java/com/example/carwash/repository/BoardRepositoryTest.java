@@ -1,6 +1,7 @@
 package com.example.carwash.repository;
 
 import com.example.carwash.entity.Board;
+import com.example.carwash.entity.Categ;
 import com.example.carwash.entity.Member;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -26,10 +27,13 @@ class BoardRepositoryTest {
     MemberRepository memberRepository;
 
 
+
+
     @Test
     public void registerTest(){
 
         Member member = memberRepository.findById(5L).get();
+
 
         for (int i = 0; i < 50; i++) {
 
