@@ -13,13 +13,20 @@ import java.net.URLEncoder;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class RequestPageDTO {
 
+    @Builder.Default
     private int page = 1;
 
+    @Builder.Default
     private int size = 10;
 
     private String type;
+
+    private Long categ_num;
+    @Builder.Default
+    private String sortName = "num";
 
 
     private String keyword;

@@ -5,7 +5,9 @@ import com.example.carwash.dto.RequestPageDTO;
 import com.example.carwash.dto.ResponsePageDTO;
 import com.example.carwash.entity.Board;
 import com.example.carwash.repository.BoardRepository;
+import com.example.carwash.repository.CategRepository;
 import com.example.carwash.service.BoardService;
+import com.example.carwash.service.CategService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.Getter;
@@ -31,6 +33,7 @@ public class BoardController {
 
     private final BoardRepository boardRepository;
     private final BoardService boardService;
+
 
     @GetMapping("/register")
     public String register() {
@@ -94,26 +97,23 @@ public class BoardController {
         log.info(requestPageDTO.getLink());
         log.info(requestPageDTO.getPageable());
 
-        ResponsePageDTO responsePageDTO =
-                boardService.listPage(requestPageDTO);
-        model.addAttribute("responsePageDTO", responsePageDTO);
+        if(requestPageDTO.getCateg_num() == null){
+            requestPageDTO.setCateg_num(2L );
 
+        }
+
+        ResponsePageDTO<BoardDTO> responsePageDTO=
+            boardService.categList(requestPageDTO);
+
+
+
+
+        model.addAttribute("responsePageDTO",responsePageDTO);
         return "board/listB";
-
     }
-    @GetMapping("/listC")
-    public String listC(Model model, RequestPageDTO requestPageDTO) {
-        log.info(requestPageDTO);
-        log.info(requestPageDTO.getLink());
-        log.info(requestPageDTO.getPageable());
 
-        ResponsePageDTO responsePageDTO =
-                boardService.listPage(requestPageDTO);
-        model.addAttribute("responsePageDTO", responsePageDTO);
 
-        return "board/listC";
 
-    }
 
 
     @GetMapping("/read")

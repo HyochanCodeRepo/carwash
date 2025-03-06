@@ -1,14 +1,18 @@
 package com.example.carwash.repository;
 
+import com.example.carwash.dto.BoardDTO;
 import com.example.carwash.entity.Board;
 import com.example.carwash.entity.Categ;
 import com.example.carwash.entity.Member;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
+import org.apache.coyote.Request;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,6 +29,9 @@ class BoardRepositoryTest {
 
     @Autowired
     MemberRepository memberRepository;
+
+    @Autowired
+    CategRepository categRepository;
 
 
 
@@ -73,6 +80,16 @@ class BoardRepositoryTest {
     }
 
     @Test
+    public void insertTest(){
+        BoardDTO boardDTO = new BoardDTO();
+        boardDTO.setTitle("안녕하세요!!");
+        boardDTO.setContent("내용 수정하기 페이지 수정해야돼요");
+        boardDTO.setWriter("홍길동");
+        boardDTO.setCateg_num(1L);
+
+    }
+
+    @Test
     public void findallTest() {
         List<Board> boardList =
             boardRepository.findAll();
@@ -93,6 +110,17 @@ class BoardRepositoryTest {
     @Test
     public void delTest(){
         boardRepository.deleteById(3L);
+
+    }
+
+    @Test
+    @Transactional
+    public void listTest(){
+
+        Page<Board> boardList =
+            boardRepository.findByCategNum(1L , PageRequest.of(0,10));
+
+        log.info(boardList.getContent());
 
     }
 

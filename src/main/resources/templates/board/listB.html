@@ -23,45 +23,67 @@
 
 
 <th:block layout:fragment="content">
-<div class="container mt-5">
-    <div class="row justify-content-right ">
-        <div class="col-8 offset-2">
-            <h1>중고거래 게시판</h1>
-
-
-            <a href="/board/register">등록화면 이동</a>
-
-            <table class="table">
-
-                <thead>
-                <th scope="col">글번호</th>
-                <th scope="col">제목</th>
-                <th scope="col">내용</th>
-                <th scope="col">작성자</th>
-                </thead>
-
-                <tbody>
-                <th:block  th:each="boardDTO:${responsePageDTO.dtoList}">
-                    <tr>
-                        <th scope="row offset-4" th:text="${boardDTO.num}"></th>
-                        <td><a class="readbtn" th:data-num="${boardDTO.num}" th:href="@{/board/read(num=${boardDTO.num})}">
-                                [[${boardDTO.title}]]
-                            </a>
-                        </td>
-                        <td th:text="${boardDTO.content}"></td>
-                        <td th:text="${boardDTO.writer}"></td>
-                    </tr>
+    <div class="container mt-5">
+        <div class="row justify-content-right ">
+            <div class="col-8 offset-2">
+                <th:block th:if="${responsePageDTO.dtoList != null}">
+                    <h1 th:text="${ responsePageDTO.dtoList[0].categ.name +'게시판'}"></h1>
 
                 </th:block>
 
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/board/listA">통합</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/board/listB?categ_num=1">자유</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/board/listB?categ_num=2">꿀팁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/board/listB?categ_num=3">거래</a>
+                    </li>
+                    <li class="nav-item btn btn-dark offset-5 mb-3">
+                        <a  href="/board/register" style="color: white">글 쓰러가기</a>
+                    </li>
+                </ul>
 
 
-                </tbody>
 
-            </table>
+                <table class="table">
 
-            <!--검색-->
-                <form action="/board/listA" th:object="${requestPageDTO}">  <!--기본메소드 타입이 get   보내는 주소는 listA 현재페이지-->
+                    <thead>
+                    <th scope="col">글번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">내용</th>
+                    <th scope="col">작성자</th>
+                    </thead>
+
+                    <tbody>
+                    <th:block  th:each="boardDTO:${responsePageDTO.dtoList}">
+                        <tr>
+
+                            <th scope="row offset-4" th:text="${boardDTO.num}"></th>
+                            <td><a class="readbtn" th:data-num="${boardDTO.num}" th:href="@{/board/read(num=${boardDTO.num})}">
+                                [[${ '[' +boardDTO.categ.name + '] '  +   boardDTO.title}]]
+                            </a>
+                            </td>
+                            <td th:text="${boardDTO.content}"></td>
+                            <td th:text="${boardDTO.writer}"></td>
+                        </tr>
+
+                    </th:block>
+
+
+
+                    </tbody>
+
+                </table>
+
+
+                <!--검색-->
+                <form action="/board/listB" th:object="${requestPageDTO}">  <!--기본메소드 타입이 get   보내는 주소는 listA 현재페이지-->
                     <div class="row">
 
                         <!--현재페이지에 다시 보낸다. -->
@@ -86,28 +108,34 @@
                 </form>
 
 
-            <th:block th:if="${responsePageDTO.prev}">
-                <a th:href="@{/board/listA(page=${responsePageDTO.start -1},type=${requestPageDTO.type}, keyword=${requestPageDTO.keyword} ) }">이전</a>
-            </th:block>
-
-
-            <th:block th:each="page : ${#numbers.sequence(responsePageDTO.start, responsePageDTO.end)}">
-                <th:block th:if="${requestPageDTO.page == page}">
-                    <a style="color: pink; font-size: 2em" th:href="@{/board/listA(page=${page} ) }"   >[[${page}]]</a>
+                <th:block th:if="${responsePageDTO.prev}">
+                    <a th:href="@{/board/listB(page=${responsePageDTO.start -1},type=${requestPageDTO.type}, keyword=${requestPageDTO.keyword} ) }">이전</a>
                 </th:block>
-                <th:block th:if="${requestPageDTO.page != page}">
-                    <a th:href="@{/board/listA(page=${page}, type=${requestPageDTO.type}, keyword=${requestPageDTO.keyword} ) }"   >[[${page}]]</a>
-                </th:block>
-            </th:block>
 
-            <th:block th:if="${responsePageDTO.next}">
-                <a th:href="@{/board/listA(page=${responsePageDTO.end + 1},type=${requestPageDTO.type}, keyword=${requestPageDTO.keyword} ) }"> 다음</a>
-            </th:block>
+
+                <th:block th:each="page : ${#numbers.sequence(responsePageDTO.start, responsePageDTO.end)}">
+                    <th:block th:if="${requestPageDTO.page == page}">
+                        <a style="color: pink; font-size: 2em" th:href="@{/board/listB(page=${page} ) }"   >[[${page}]]</a>
+                    </th:block>
+                    <th:block th:if="${requestPageDTO.page != page}">
+                        <a th:href="@{/board/listB(page=${page}, type=${requestPageDTO.type}, keyword=${requestPageDTO.keyword} ) }"   >[[${page}]]</a>
+                    </th:block>
+                </th:block>
+
+                <th:block th:if="${responsePageDTO.next}">
+                    <a th:href="@{/board/listB(page=${responsePageDTO.end + 1},type=${requestPageDTO.type}, keyword=${requestPageDTO.keyword} ) }"> 다음</a>
+                </th:block>
+
+
+
+            </div>
+
+
+
 
 
         </div>
     </div>
-</div>
 
 
 </th:block>

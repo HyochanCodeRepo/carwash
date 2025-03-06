@@ -42,19 +42,23 @@ class BoardServiceImplTest {
 
     @Test
     public void insertTest(){
-        BoardDTO boardDTO = new BoardDTO();
-        boardDTO.setTitle("카테1테스트");
-        boardDTO.setContent("카테1");
-        boardDTO.setWriter("카테1");
+
+        for (int i = 0; i < 50; i++) {
+            BoardDTO boardDTO = new BoardDTO();
+            boardDTO.setTitle("카테"+i+"테스트");
+            boardDTO.setContent("카테내용"+i);
+            boardDTO.setWriter("카테작성자"+i);
 
 
-        //부모 카테고리의 id <option th:value="${caDTO.id}" th:text={caDTO.name}> </option>
-        boardDTO.setCateg_num(1L);
+            //부모 카테고리의 id <option th:value="${caDTO.id}" th:text={caDTO.name}> </option>
+            boardDTO.setCateg_num(3L);
 
-        String email = "hyo@a.a";
+            String email = "hyo@a.a";
 
 
-        boardService.register(boardDTO, email);
+            boardService.register(boardDTO, email);
+        }
+
 
 
     }

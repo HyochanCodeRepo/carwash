@@ -16,6 +16,10 @@ public interface BoardRepository extends JpaRepository<Board, Long>,BoardSearch 
     @Query("select b from Board b")
     public Page<Board> pagination2(Pageable pageable);
 
+    public Page<Board> findByCategNum (Long num, Pageable pageable);
+
+
+
 
 
 

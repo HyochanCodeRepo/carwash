@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -93,6 +94,35 @@ public class BoardServiceImpl implements BoardService{
 
         return responsePageDTO;
     }
+
+    @Override
+    public ResponsePageDTO<BoardDTO> categList(RequestPageDTO requestPageDTO) {
+
+        Pageable pageable = requestPageDTO.getPageable(requestPageDTO.getSortName());
+
+
+
+
+
+        Page<Board> boardPage=
+            boardRepository.findByCategNum(requestPageDTO.getCateg_num() , pageable);
+
+        boardPage.getContent().forEach(board -> log.info(board));
+
+        List<BoardDTO> boardDTOList =
+        boardPage.getContent().stream().map(
+                board -> modelMapper.map(board, BoardDTO.class)
+        ).collect(Collectors.toList());
+
+
+        ResponsePageDTO<BoardDTO> responsePageDTO =
+                new ResponsePageDTO<>(requestPageDTO, boardDTOList, (int) boardPage.getTotalElements());
+
+
+        return responsePageDTO;
+    }
+
+
 
     @Override
     public BoardDTO read(Long num) {

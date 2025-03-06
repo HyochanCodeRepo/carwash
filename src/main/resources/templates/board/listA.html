@@ -26,10 +26,27 @@
 <div class="container mt-5">
     <div class="row justify-content-right ">
         <div class="col-8 offset-2">
-            <h1>자유게시판</h1>
+            <h1>통합게시판</h1>
+
+            <ul class="nav nav-navpills">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/board/listA">통합</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/board/listB?categ_num=1">자유</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/board/listB?categ_num=2">꿀팁</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/board/listB?categ_num=3">거래</a>
+                </li>
+                <li class="nav-item btn btn-dark offset-5 mb-3">
+                    <a  href="/board/register" style="color: white">글 쓰러가기</a>
+                </li>
+            </ul>
 
 
-            <a href="/board/register">등록화면 이동</a>
 
             <table class="table">
 
