@@ -1,31 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}"
+>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        img{
+            width: 100px;
+        }
+    </style>
 </head>
 <body>
+<th:block layout:fragment="content">
+    <div class="container">
+        <div class="row justify-content-right ">
+            <div class="col-8 offset-2">
 
-<div class="container">
-    <div class="row justify-content-right ">
-        <div class="col-8 offset-2">
-            <h1>상세보기 페이지</h1>
-            <a th:href="${'/board/listA?' +requestPageDTO.link}">글 목록 이동</a>
+                <h1 class="mt-5">상세보기 페이지</h1>
 
-                글번호 : <span th:text="${boardDTO.num}"></span><br>
+                <a th:href="${'/board/listA?' +requestPageDTO.link}" class="offset-10">글 목록 이동</a><br><hr>
+
+                글번호 : <span th:text="${boardDTO.num}"></span>
+                작성일 : <span th:text="${#temporals.format(boardDTO.regTime, 'yyyy-MM-dd HH:mm')}"></span><br>
+
                 글제목 : <span th:text="${boardDTO.title}"></span><br>
-                글내용 : <span th:text="${boardDTO.content}"></span><br>
                 글작성자 : <span th:text="${boardDTO.writer}"></span><br>
 
-            <a th:href="${'/board/modify?num=' + boardDTO.num + '&'+ requestPageDTO.link}">수정하기</a>
+                글내용 : <p th:text="${boardDTO.content}"></p><br>
+
+                <a th:href="${'/board/modify?num=' + boardDTO.num + '&'+ requestPageDTO.link}" style="margin-top: 15px" >수정하기</a>
 
 
 
+            </div>
         </div>
     </div>
-</div>
+</th:block>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </body>

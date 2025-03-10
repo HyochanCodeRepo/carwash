@@ -12,6 +12,8 @@
     <meta charset="UTF-8">
     <title>My Page✏</title>
 
+
+
     <style>
         img{
             width: 100px;
@@ -25,12 +27,17 @@
         <div class="col">
             <div class="row">
             </div>
-            <div class="row offset-11">
+            <div class="row offset-10">
                 <div >
                     <a><button type="submit" class="btn btn-primary">저장</button></a>
                 </div>
             </div>
         </div>
+
+        이름 : <div>[[${memberDTO.name}]]</div>
+        이메일 : <input th:value="${memberDTO.email}" readonly><br>
+        주소 : <input th:value="${memberDTO.address}"><br>
+        asdfasdfasdf
     </form>
 
 

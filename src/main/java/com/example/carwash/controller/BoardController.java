@@ -60,6 +60,9 @@ public class BoardController {
         boardDTO =
                 boardService.register(boardDTO, principal.getName());
         log.info("저장된 데이터 :" + boardDTO);
+        log.info(boardDTO.getCateg_num());
+        log.info(boardDTO.getCateg_num());
+
         return "redirect:/board/listA";
 
     }

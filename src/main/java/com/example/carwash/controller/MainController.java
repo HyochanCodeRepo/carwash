@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
     @GetMapping("/")
-    public String mainPage(){
+    public String mainPage() {
 
         return "main";
     }
+
 }

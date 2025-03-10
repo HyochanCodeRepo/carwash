@@ -44,14 +44,15 @@ public class BoardServiceImpl implements BoardService{
         memberRepository.findByEmail(email);
 
         Board board = modelMapper.map(boardDTO, Board.class);
-
-        board =
-            boardRepository.save(board);
-        boardDTO = modelMapper.map(board, BoardDTO.class);
-
         board.setCateg(categ);
 
         board.setMember(member);
+        board =
+            boardRepository.save(board);
+        boardDTO = modelMapper.map(board, BoardDTO.class);
+        boardDTO.setCateg_num(board.getCateg().getNum());
+
+
 
         return boardDTO;
     }

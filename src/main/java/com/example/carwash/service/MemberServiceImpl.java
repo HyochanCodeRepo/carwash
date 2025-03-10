@@ -1,6 +1,7 @@
 package com.example.carwash.service;
 
 import com.example.carwash.constant.Role;
+import com.example.carwash.dto.BoardDTO;
 import com.example.carwash.dto.MemberDTO;
 import com.example.carwash.entity.Member;
 import com.example.carwash.repository.MemberRepository;
@@ -14,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
 
 @Service
 @Transactional
@@ -92,6 +95,36 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                         .roles(role)
                         .build();
         return user;
+    }
+
+
+    @Override
+    public void mypage(MemberDTO memberDTO, Principal principal) {
+
+
+        log.info(principal.getName());
+        Member member =
+            memberRepository.findByEmail(principal.getName());
+        log.info(member);
+
+        member.setAddress(memberDTO.getAddress());
+        member.setEmail(memberDTO.getEmail());
+
+
+
+        memberRepository.save(member);
+
+
+    }
+
+    @Override
+    public MemberDTO read(String email) {
+        Member member =
+            memberRepository.findByEmail(email);
+
+        MemberDTO memberDTO =
+            modelMapper.map(member, MemberDTO.class);
+        return memberDTO;
     }
 }
 

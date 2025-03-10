@@ -28,6 +28,7 @@ public class Member {
 
     private String address;
 
+
     @Enumerated(EnumType.STRING)
     private Role role;
 }

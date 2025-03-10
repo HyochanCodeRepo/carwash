@@ -1,26 +1,42 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}"
 >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        img{
+            width: 100px;
+        }
+    </style>
 </head>
 <body>
 <h1>등록화면</h1>
+<th:block layout:fragment="content">
+    <form action="/board/register" method="post">
+            <select name="categ_num" class="form-select form-select-sm" aria-label="Small select example">
+                <option selected>게시판을 선택해주세요!</option>
+                <option value="1">자유</option>
+                <option value="2">꿀팁</option>
+                <option value="3">거래</option>
+            </select>
 
-<form action="/board/register" method="post">
-    제목 : <input name="title"><br>
-    내용 : <input name="content"><br>
+        <span class="input-group-text" id="basic-addon1">제목</span>
+        <input type="text" name="title" class="form-control" placeholder="제목을 입력해주세요." aria-label="Username" aria-describedby="basic-addon1">
 
-    <button type="submit" class="btn btn-success">저장</button>
+        <span class="input-group-text mt-2">글내용</span>
+        <textarea class="form-control" name="content" placeholder="내용을 입력해주세요"></textarea>
 
-</form>
 
+        <button type="submit" class="btn btn-success">저장</button>
+
+    </form>
+</th:block>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 

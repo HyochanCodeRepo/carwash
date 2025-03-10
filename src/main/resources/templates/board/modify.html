@@ -1,49 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}"
+>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        img{
+            width: 100px;
+        }
+    </style>
 </head>
 <body>
+<th:block layout:fragment="content">
+    <div class="container">
+        <div class="row justify-content-right ">
+            <div class="col-8 offset-2">
+                <h1>[[${boardDTO.num}]] 번 글 수정 페이지</h1>
 
-<div class="container">
-    <div class="row justify-content-right ">
-        <div class="col-8 offset-2">
-            <h1>[[${boardDTO.num}]] 번 글 수정 페이지</h1>
+                <a th:href="${'/board/listA?' +requestPageDTO.link}">글 목록 이동</a>
 
-            <a th:href="${'/board/listA?' +requestPageDTO.link}">글 목록 이동</a>
+                <form action="/board/modify" method="post">
 
-            <form action="/board/modify" method="post">
+                    글번호 : <span th:text="${boardDTO.num}"></span><br>
+                    글제목 : <input name="title" th:value="${boardDTO.title}"><br>
+                    글작성자 : <span th:text="${boardDTO.writer}"></span><br>
 
-                글번호 : <span th:text="${boardDTO.num}"></span><br>
-                글제목 : <input name="title" th:value="${boardDTO.title}"><br>
-                글내용 : <input name="content" th:value="${boardDTO.content}"><br>
-                글작성자 : <span th:text="${boardDTO.writer}"></span><br>
-
-                <input name="num" type="hidden" th:value="${boardDTO.num}">
-                <input name="page" type="hidden" th:value="${requestPageDTO.page}">
-                <input name="keyword" type="hidden" th:value="${requestPageDTO.keyword}">
-                <input name="type" type="hidden" th:value="${requestPageDTO.type}">
+                        <span class="input-group-text">글내용</span>
+                        <textarea class="form-control" name="content" th:text="${boardDTO.getContent()}"></textarea>
 
 
-                <button class="btn btn-primary">저장!</button>
-            </form>
-            <form action="/board/del" method="post" >
-                <input name="num" type="hidden" th:value="${boardDTO.num}">
-                <button class="btn btn-primary mt-2">삭제!</button>
-
-            </form>
+                    <input name="num" type="hidden" th:value="${boardDTO.num}">
+                    <input name="page" type="hidden" th:value="${requestPageDTO.page}">
+                    <input name="keyword" type="hidden" th:value="${requestPageDTO.keyword}">
+                    <input name="type" type="hidden" th:value="${requestPageDTO.type}">
 
 
+                    <button class="btn btn-primary">저장!</button>
+                </form>
+                <form action="/board/del" method="post" >
+                    <input name="num" type="hidden" th:value="${boardDTO.num}">
+                    <button class="btn btn-primary mt-2">삭제!</button>
+
+                </form>
 
 
+
+
+            </div>
         </div>
     </div>
-</div>
 
-
+</th:block>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </body>
